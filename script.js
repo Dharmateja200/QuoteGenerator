@@ -71,9 +71,12 @@ let quoteList=[
 let  quoteElement=document.getElementById("quote");
 let authorid= document.getElementById("Author");
 
-function GeneratingQuotes(){
-     let i= Math.floor(Math.random()*quoteList.length);
-     quote.innerText=quoteList[i].quote;
-     authorid.innerText= "~~"+ " "+quoteList[i].author;
+async function GeneratorAPI(){
+    let response= await fetch ("https://api.quotable.io/random");
+    console.log(response);
+    let quoting= await response.json();
+    quoteElement.innerText= quoting.content;
+    authorid.innerText=" ~~ "+" "+quoting.author;
 }
-document.getElementById("Generator").onclick=GeneratingQuotes;
+
+document.getElementById("Generator").onclick= GeneratorAPI;
